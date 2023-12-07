@@ -1,0 +1,6 @@
+button.toastui-calendar-popup-button.toastui-calendar-popup-confirm {
+    background-color: rgb(35, 153, 88);
+}
+button.toastui-calendar-popup-button.toastui-calendar-popup-confirm:hover {
+    background-color: rgb(21, 182, 93);
+}
