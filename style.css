@@ -141,17 +141,17 @@
 }
 
 .calendars {
-    padding: 1rem;
+    padding: .3em 1rem;
 }
 .calendars-title {
-    font-size: .97rem;
-    font-weight: 500;
+    font-size: .8rem;
+    font-weight: 600;
     margin-bottom: .4rem;
     padding: .3rem;
     display: flex;
     gap: .4rem;
     align-items: center;
-    text-transform: uppercase;
+    color: rgb(27, 27, 27);
 }
 .calendars-title i {
     opacity: .8;
@@ -159,7 +159,6 @@
 
 .calendars-list {
     padding-left: 2rem;
-    font-size: .9rem;
 }
 
 .calendars-item {
@@ -167,4 +166,35 @@
     display: flex;
     gap: .6rem;
     align-items: center;
+    font-size: .85rem;
+}
+
+.display-options {
+    padding-left: 2rem;
+    gap: 1rem;
+}
+
+.option-item {
+    font-size: .85rem;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+}
+
+div.toastui-calendar-template-milestoneTitle,
+div.toastui-calendar-template-taskTitle,
+div.toastui-calendar-template-alldayTitle {
+    display: table-cell;
+    font-size: 11px;
+    text-align: right;
+    vertical-align: middle;
+    text-wrap: wrap;
+}
+ 
+p.event-template {
+    text-wrap: wrap;
+}
+
+p.event-template b {
+    font-weight: 600;
 }

@@ -4,3 +4,20 @@ button.toastui-calendar-popup-button.toastui-calendar-popup-confirm {
 button.toastui-calendar-popup-button.toastui-calendar-popup-confirm:hover {
     background-color: rgb(21, 182, 93);
 }
+
+div.toastui-calendar-popup-section.toastui-calendar-section-detail span {
+    color: #000 !important;
+    font-family: 'Verdana';
+}
+
+span.toastui-calendar-template-popupDetailDate {
+        
+    color: #999 !important;
+    font-family: 'Verdana';
+}
+
+/* div.toastui-calendar-popup-section.toastui-calendar-section-button {
+    display: flex !important;
+    align-items: center;
+    gap: .9rem;
+} */

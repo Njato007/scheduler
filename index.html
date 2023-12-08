@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CDN -->
-    <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+    <link rel="stylesheet" href="tui-assets/css/toastui-calendar.min.css" />
     <!-- tui -->
     <link rel="stylesheet" href="tui-assets/css/tui-date-picker.css">
     <link rel="stylesheet" href="tui-assets/css/tui-time-picker.css">
@@ -53,8 +53,8 @@
 
             <div class="calendars">
                 <h1 class="calendars-title">
-                    <i class="fas fa-cog"></i>
-                    Default view option
+                    <!-- <i class="fas fa-cog"></i> -->
+                    Change calendar view
                 </h1>
                 <div class="display-options">
                     <label class="option-item">
@@ -71,11 +71,27 @@
                     </label>
                 </div>
             </div>
+            
+            <div class="calendars">
+                <h1 class="calendars-title">
+                    Other options
+                </h1>
+                <div class="display-options">
+                    <label class="option-item">
+                        <input type="checkbox" id="show-task">
+                        <span>Show task</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" id="show-currenttime" checked>
+                        <span>Show current time</span>
+                    </label>
+                </div>
+            </div>
 
             <!-- Calendars list -->
             <div class="calendars">
                 <h1 class="calendars-title">
-                    <i class="fas fa-calendar-alt"></i>
+                    <!-- <i class="fas fa-calendar-alt"></i> -->
                     Calendars
                 </h1>
                 <div class="calendars-list" id="calendars-list">
@@ -100,66 +116,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="tui-assets/js/tui-time-picker.js"></script>
     <script src="tui-assets/js/tui-date-picker.js"></script>
-    <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.ie11.min.js"></script>
+    <script src="tui-assets/js/toastui-calendar.ie11.min.js"></script>
+    <script src="utils/global-functions.js"></script>
     <script>
         const Calendar = tui.Calendar;
         const container = document.getElementById('calendar');
-        const calendars = [
-                {
-                    id: 'cal1',
-                    name: 'Personal',
-                    color: '#ffffff',
-                    backgroundColor: '#9e5fff',
-                    dragBackgroundColor: '#9e5fff',
-                    borderColor: '#9e5fff',
-                },
-                {
-                    id: 'cal2',
-                    name: 'Work',
-                    color: '#ffffff',
-                    backgroundColor: '#00a9ff',
-                    dragBackgroundColor: '#00a9ff',
-                    borderColor: '#00a9ff',
-                },
-                {
-                    id: 'cal3',
-                    name: 'Birthday',
-                    color: '#ffffff',
-                    backgroundColor: '#ff5f5f',
-                    dragBackgroundColor: '#ff5f5f',
-                    borderColor: '#ff5f5f',
-                    allday: true
-                },
-        ];
-        const options = {
-            defaultView: 'day',
-            isReadOnly: false,
-            usageStatistics: false,
-            timezone: {
-                zones: [
-                {
-                    timezoneName: 'Africa/Addis_Ababa',
-                    displayLabel: 'Mada',
-                },
-                // {
-                //     timezoneName: 'Europe/London',
-                //     displayLabel: 'London',
-                // },
-                ],
-            },
-            calendars: calendars,
-            useFormPopup: true,
-            useDetailPopup: true
-        };
-
-        const calendar = new Calendar(container, options);
-        calendar.setOptions({
-            defaultView: 'day',
-            isReadOnly: false,
-        // ...
-        });
-
-        calendar.createEvents([
+        const currentTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const events = [
             {
                 id: 'event1',
                 calendarId: 'cal2',
@@ -204,14 +167,59 @@
                     fontSize: '15px',
                 },
             }, // EventObject
-        ]); 
+        ]; 
+        const calendars = [
+                {
+                    id: 'cal1',
+                    name: 'Personal',
+                    color: '#ffffff',
+                    backgroundColor: '#9e5fff',
+                    dragBackgroundColor: '#9e5fff',
+                    borderColor: '#9e5fff',
+                },
+                {
+                    id: 'cal2',
+                    name: 'Work',
+                    color: '#ffffff',
+                    backgroundColor: '#00a9ff',
+                    dragBackgroundColor: '#00a9ff',
+                    borderColor: '#00a9ff',
+                },
+                {
+                    id: 'cal3',
+                    name: 'Birthday',
+                    color: '#ffffff',
+                    backgroundColor: '#ff5f5f',
+                    dragBackgroundColor: '#ff5f5f',
+                    borderColor: '#ff5f5f',
+                    allday: true
+                },
+        ];
+        const options = {
+            defaultView: 'day',
+            isReadOnly: false,
+            usageStatistics: false,
+            timezone: {
+                zones: [
+                    {
+                        timezoneName: currentTz,
+                        displayLabel: 'Timezone',
+                    },
+                ],
+            },
+            calendars: calendars,
+            useFormPopup: true,
+            useDetailPopup: true
+        };
+
+        const calendar = new Calendar(container, options);
+        calendar.createEvents(events)
 
         calendar.setOptions({
             week: {
                 showNowIndicator: true,
-                narrowWeekend: false,
+                narrowWeekend: true,
                 taskView: false,
-                // dayNames: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
                 startDayOfWeek: new Date().getDay()
             }
         });
@@ -219,10 +227,10 @@
         calendar.setOptions({
             template: {
                 time(event) {
-                    const start = moment(event.start.d.d).format('HH:mm');
-                    const end = moment(event.end.d.d).format('HH:mm');
-                    return `<p>
-                        <b>${start} - ${end}</b> <br/>
+                    const start = event.start.d.d
+                    const end = event.end.d.d
+                    return `<p class="event-template">
+                        <b>${customTime(start)} - ${customTime(end)}</b> <br/>
                         <span>${event.title}</span>
                     </p>`;
                 },
@@ -256,12 +264,101 @@
             console.log(input.value)
             input.addEventListener('click', () => {
                 const view = input.value;
-                calendar.setOptions({
-                    defaultView: 'day'
-                });
-                alert('ok')
+                calendar.changeView(view)
             });
         })
+
+        // Show task in calendar. event handler
+        document.querySelector('#show-task').addEventListener('click', (e) => {
+            const isChecked = e.target.checked;
+            calendar.setOptions({
+                week: {
+                    showNowIndicator: true,
+                    narrowWeekend: true,
+                    taskView: isChecked,
+                }
+            })
+        });
+        
+        // Show current time in calendar. event handler
+        document.querySelector('#show-currenttime').addEventListener('click', (e) => {
+            calendar.setOptions({
+                week: {
+                    showNowIndicator: e.target.checked,
+                }
+            })
+        });
+
+        // Calendar check event 800 1100 1400
+        document.querySelectorAll('#calendars-list input[type="checkbox"]').forEach(input => {
+            input.addEventListener('change', () => {
+                const isChecked = input.checked;
+                calendar.setCalendarVisibility(input.value, isChecked);
+            });
+        });
+
+        calendar.setOptions({
+            template: {
+                // time now display
+                timegridNowIndicatorLabel({ time }) {
+                    return customTime(time);
+                },
+                // vertical time dispaly
+                timegridDisplayPrimaryTime({ time }) {
+                    // french time
+                    return customTime(time);
+                },
+                
+                milestoneTitle() {
+                    return `<span>Milestone events</span>`;
+                },
+                taskTitle() {
+                    return `<span>Task events</span>`;
+                },
+                alldayTitle() {
+                    return `<span>Allday events</span>`;
+                },
+                // POPUP
+                popupIsAllday() {
+                    return 'All day';
+                },
+                popupStateFree() {
+                    return 'Free';
+                },
+                popupStateBusy() {
+                    return 'Busy';
+                },
+                titlePlaceholder() {
+                    return 'Title';
+                },
+                locationPlaceholder() {
+                    return 'Location';
+                },
+                startDatePlaceholder() {
+                    return 'Start date';
+                },
+                endDatePlaceholder() {
+                    return 'End date';
+                },
+                popupSave() {
+                    return 'Add';
+                },
+                popupUpdate() {
+                    return 'Update';
+                },
+                popupEdit() {
+                    return 'Edit';
+                },
+                popupDelete() {
+                    return 'Delete';
+                },
+            },
+            week: {
+                dayNames: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
+            }
+        });
+
+
     </script>
     <script src="script.js"></script>
     <script src="calendar-event.js"></script>
