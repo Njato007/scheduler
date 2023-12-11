@@ -2,22 +2,6 @@ const date = new Date();
 
 var currentDate = date.getDate();
 
-const weeksNames = ['Sunday', 'Monday', "Tuesday", 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const monthsNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-];
-
 const renderCalendar = (date) => {
     
     const month = date.getMonth();
@@ -37,14 +21,14 @@ const renderCalendar = (date) => {
     const nextDays = 7 - lastDayIndex - 1;
 
     // display date
-    document.querySelector('#c-month').innerHTML = monthsNames[month];
+    document.querySelector('#c-month').innerHTML = Words[Lang].monthNames[month];
 
     document.querySelector('#c-year').innerHTML = date.getFullYear();
 
-    document.querySelector('#c-date').innerHTML = new Date().toDateString();
+    document.querySelector('#c-date').innerHTML = Words[Lang].todaysDate();
 
     // render weeks name
-    document.querySelector('.weekdays').innerHTML = weeksNames.map(week => `<div>${week.substring(0, 3)}</div>`).join('');
+    document.querySelector('.weekdays').innerHTML = Words[Lang].dayNames.map(week => `<div>${week.substring(0, 3)}</div>`).join('');
 
     let days = "";
     // display prev days

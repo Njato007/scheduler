@@ -8,3 +8,39 @@ const customTime = (time, is12 = true) => {
     });
     return convertedTime;
 }
+
+// localstorage 
+// functions use to save options setting
+
+// calendar view
+const CalendarView = {
+    set(view) {
+        localStorage.setItem('calendar-view', view);
+    },
+    get() {
+        const view = localStorage.getItem('calendar-view') || 'day';
+        return view;
+    }
+}
+
+// Tasks view
+const TasksView = {
+    set(view) {
+        localStorage.setItem('tasks-visibility', view);
+    },
+    get() {
+        const view = localStorage.getItem('tasks-visibility') || 'false';
+        return JSON.parse(view);
+    }
+}
+
+// Current Time
+const CurrentTimeVisibility = {
+    set(visiblity) {
+        localStorage.setItem('currenttime-visibility', new String(visiblity));
+    },
+    get() {
+        const visibility = localStorage.getItem('currenttime-visibility') || 'false';
+        return JSON.parse(visibility);
+    }
+}

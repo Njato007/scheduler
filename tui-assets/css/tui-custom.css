@@ -1,0 +1,51 @@
+button.toastui-calendar-popup-button.toastui-calendar-popup-confirm {
+    background-color: rgb(35, 153, 88);
+}
+button.toastui-calendar-popup-button.toastui-calendar-popup-confirm:hover {
+    background-color: rgb(21, 182, 93);
+}
+
+div.toastui-calendar-popup-section.toastui-calendar-section-detail span {
+    color: #000 !important;
+    font-family: 'Verdana';
+}
+
+span.toastui-calendar-template-popupDetailDate {
+        
+    color: #999 !important;
+    font-family: 'Verdana';
+}
+
+/* div.toastui-calendar-popup-section.toastui-calendar-section-button {
+    display: flex !important;
+    align-items: center;
+    gap: .9rem;
+} */
+
+div.toastui-calendar-template-milestoneTitle,
+div.toastui-calendar-template-taskTitle,
+div.toastui-calendar-template-alldayTitle {
+    display: table-cell;
+    font-size: .7rem;
+    text-align: right;
+    vertical-align: middle;
+    color:#363636;
+}
+
+div.toastui-calendar-template-milestoneTitle span,
+div.toastui-calendar-template-taskTitle span,
+div.toastui-calendar-template-alldayTitle span {
+    white-space: pre-line;
+}
+
+span.toastui-calendar-template-popupDetailTitle {
+    font-size: .8rem;
+    white-space: normal;
+}
+div.toastui-calendar-template-popupStateBusy,
+div.toastui-calendar-template-popupStateFree,
+div.toastui-calendar-template-popupIsAllday,
+span.toastui-calendar-content {
+    font-weight: 400;
+    color: #414141 !important;
+}
