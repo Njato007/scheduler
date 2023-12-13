@@ -1,4 +1,4 @@
-const Lang = 'en';
+const Lang = 'fr';
 
 const Words = {
     en: {
@@ -36,6 +36,10 @@ const Words = {
         change_calendar_view: 'Change calendar view',
         other_options: 'Other options',
         calendar: 'Calendar',
+        calendars: 'Calendars',
+        mycalendars: 'My Calendars',
+        add_calendar: 'Add calendar',
+        edit_calendar: 'Edit calendar',
         show_task: 'Show tasks',
         show_current_time: 'Show current time',
         todaysDate() {
@@ -77,7 +81,10 @@ const Words = {
         change_calendar_view: 'Changer la vue du calendrier',
         other_options: 'Autres options',
         calendar: 'Calendrier',
+        calendars: 'Calendriers',
         mycalendars: 'Mes calendriers',
+        add_calendar: 'Ajouter un calendrier',
+        edit_calendar: 'Modifier le calendrier',
         show_task: 'Afficher les tâches',
         show_current_time: 'Afficher l\'heure actuelle',
         todaysDate() {
@@ -166,6 +173,9 @@ calendar.setOptions({
         
         goingDuration(event) {
             return `<span>${event.goingDuration}</span>`;
+        },
+        popupDetailBody({ body }) {
+            return body;
         },
     },
     week: {
