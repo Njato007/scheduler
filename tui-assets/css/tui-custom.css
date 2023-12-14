@@ -7,13 +7,14 @@ button.toastui-calendar-popup-button.toastui-calendar-popup-confirm:hover {
 
 div.toastui-calendar-popup-section.toastui-calendar-section-detail span {
     color: #000 !important;
-    font-family: 'Verdana';
+    font-family: 'Quicksand';
+    font-weight: 500;
 }
 
 span.toastui-calendar-template-popupDetailDate {
-        
     color: #999 !important;
-    font-family: 'Verdana';
+    font-family: 'Quicksand';
+    font-weight: 500;
 }
 
 /* div.toastui-calendar-popup-section.toastui-calendar-section-button {
@@ -48,4 +49,20 @@ div.toastui-calendar-template-popupIsAllday,
 span.toastui-calendar-content {
     font-weight: 400;
     color: #414141 !important;
+}
+
+.tui-calendar .tui-calendar-title-today {
+    font-weight: 400;
+}
+tr.tui-calendar-week td{
+    font-weight: 500 !important;
+}
+
+.toastui-calendar-popup-cancel {
+    margin-right: .5rem;
+    background-color: #8d8080 !important;
+}
+
+.toastui-calendar-popup-cancel:hover {
+    background-color: #181818 !important;
 }

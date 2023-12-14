@@ -6,11 +6,15 @@
 .checkbox-wrapper-18 .round label {
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 50%;
+  border-radius: .3rem;
   cursor: pointer;
   height: 20px;
   width: 20px;
   display: block;
+  opacity: .4;
+}
+.checkbox-wrapper-18 .round input[type="checkbox"]:checked + label {
+  opacity: 1;
 }
 
 .checkbox-wrapper-18 .round label:after {

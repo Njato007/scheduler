@@ -14,13 +14,15 @@
     display: flex;
     width: 100%;
     min-height: 100vh;
+    contain: content;
 }
 
 
 .calendar {
     width: 15rem;
     height: 18rem.2;
-    /* border-bottom: 1px solid #d8d8d8; */
+    border-bottom: 1px solid #d8d8d8;
+    background-color: white;
 }
 
 .timetable {
@@ -63,7 +65,7 @@
 }
 
 .month h1:hover {
-    color: rgb(39, 150, 72);
+    color: #279e27;
     font-weight: 600;
     cursor: pointer;
 }
@@ -138,8 +140,7 @@
 
 .days div.today {
     background-color: rgba(40, 153, 64, 0.123);
-    border: 1px solid rgb(79, 192, 104);
-    /* color: white; */
+    border: 1px solid #32b132;
 } 
 
 .days div:hover:not(.today):not(.active) {
@@ -147,14 +148,12 @@
 }
 
 .days div.active {
-    /* background-color: rgb(125, 92, 156); */
-    background-color: rgb(118, 184, 133);
+    background-color: #279e27;
     color: white;
-    /* color: #ff5f5f; */
 }
 
 .calendars {
-    padding: .3em 1rem;
+    padding: .3em .5rem;
     border: none;
     border-top: 1px solid #e5e5e5;
 }
@@ -173,10 +172,10 @@
 }
 
 .calendars-list {
-    padding-left: 2rem;
+    padding-left: 1rem;
 }
 
-.calendars-item {
+.calendars-item, .calendars-add {
     margin: .3rem 0;
     display: flex;
     gap: .6rem;
@@ -185,7 +184,7 @@
 }
 
 .display-options {
-    padding-left: 2rem;
+    padding-left: 1rem;
     gap: 1rem;
 }
 
@@ -207,4 +206,228 @@ p.event-template * {
 
 p.event-template b {
     font-weight: 600;
+}
+
+button.calendars-add {
+    padding: .2rem;
+    font-size: .81rem;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    border: none;
+    background: none;
+    font-weight: 500;
+    transition: color .3s ease;
+}
+button.calendars-add:hover {
+    cursor: pointer;
+    color:#279e27;
+    font-weight: 600;
+}
+
+#toast-alert {
+    font-size: .8rem;
+    font-family: 'Poppins';
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    /* width: 100%; */
+    align-items: end;
+    justify-content: center;
+    display: none;
+    animation: bottom-to-top 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+}
+#toast-alert > p {
+    padding: .6rem 1rem;
+    background: white;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 2rem;
+    margin-right: 2rem;
+}
+
+@keyframes bottom-to-top {
+    from { bottom: 0; 
+        opacity: 0; }
+    to { bottom: 2rem;
+        opacity: 1; }
+}
+@keyframes fadeout {
+    from { opacity: 1; display: flex; bottom: 2rem; }
+    to {  opacity: 0; display: none; bottom: 2rem; }
+}
+
+
+div.calendar-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    padding: 0 12rem;
+
+}
+.add-calendar-form {
+    position: relative;
+}
+.add-calendar-form > div {
+    margin: .5rem 0;
+}
+
+.add-calendar-form > h2 {
+    font-size: .8rem;
+    margin-bottom: 1rem;
+}
+.add-calendar-form > div.toastui-calendar-popup-section-item.toastui-calendar-popup-section-title {
+    display: block;
+}
+
+/* div.add-calendar-form .toastui-calendar-dropdown-menu {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(1rem, 1fr));
+    gap: .4rem;
+}
+div.add-calendar-form .toastui-calendar-dropdown-menu > li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+    padding: 1rem 0;
+}
+
+div.add-calendar-form .toastui-calendar-dropdown-menu > li:hover {
+    cursor: pointer;
+    background-color: #e5e5e5;
+}
+div.add-calendar-form .toastui-calendar-dropdown-menu > li span {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+} */
+.calendars-item-button {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap:.5rem;
+}
+
+.calendars-item:hover i.calendars-item-icon {
+    display: flex;
+}
+
+i.calendars-item-icon {
+    display: none;
+    margin-left: auto;
+    opacity: .5;
+}
+
+i.calendars-item-icon:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+i.calendars-item-edit:hover {
+    color:#279e27;
+}
+
+i.calendars-item-delete:hover {
+    color:#e62e2e;
+}
+
+.one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+form .toastui-calendar-form-container > div:nth-child(1) .toastui-calendar-dropdown-menu-item {
+    overflow: hidden;
+}
+form .toastui-calendar-form-container > div:nth-child(1) .toastui-calendar-dropdown-menu-item > .toastui-calendar-content {
+    display: inline !important;
+    white-space: nowra !important;
+    text-overflow: ellipsis !important;
+    color: #279e27;
+}
+.toastui-calendar-dropdown-section.toastui-calendar-state-section {
+    width: fit-content !important;
+}
+
+
+/* color picker */
+.color-item {
+    min-height: 25px !important;
+}
+.calendar-color_picker, .color-item{
+    border-radius: .4rem;
+    height: 25px;
+    width: 100%;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    position: relative;
+}
+
+.calendar-color_picker::-webkit-color-swatch-wrapper {
+    padding: 0; 
+}
+.calendar-color_picker::-webkit-color-swatch {
+    border: none;
+    border-radius: .4rem;
+    border: 2px solid #1f1f1f;
+}
+.calendar-color_picker::before {
+    content: attr(placeholder);
+    font-size: .7rem;
+    white-space: nowrap;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+.delete-calendar-message {
+    font-size: .8rem;
+    white-space: wrap;
+}
+h3.calendar-name {
+    font-size: 1rem;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: column;
+}
+.other-menu {
+    flex: 1;
+}
+/* .calendar-theme-shape {
+    width: 20px !important;
+} */
+.my-calendar-search {
+    display: flex;
+    gap: .4rem;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #d3d3d3;
+    background-color: white;
+    padding: .3rem;
+}
+.my-calendar-search input {
+    border: none;
+    font-size: .72rem;
+    outline: none;
+    width: 100%;
+}
+.my-calendar-search i {
+    font-size: .7rem;
+}
+
+.my-calendar-search:focus-within {
+    border-color: #32b132;
+}
+#my-calendars-list {
+    overflow-y: auto;
+    max-height: 250px;
 }
