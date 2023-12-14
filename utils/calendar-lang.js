@@ -36,8 +36,28 @@ const Words = {
         change_calendar_view: 'Change calendar view',
         other_options: 'Other options',
         calendar: 'Calendar',
+        calendars: 'Calendars',
+        mycalendars: 'My Calendars',
+        add_calendar: 'Add calendar',
+        edit_calendar: 'Edit calendar',
         show_task: 'Show tasks',
         show_current_time: 'Show current time',
+        delete_calendar_message: 'Be carefull! All events in this calendar will be deleted too. Do you want to delete anyway?',
+        delete_calendar: 'Delete calendar',
+        yes_delete: 'Delete it',
+        no_cancel: "No",
+        calendar_name_placeholder: "Calendar's name",
+        mycalendar_search_placeholder: "Search your calendars",
+        event_added: 'An event is successfully added!',
+        event_updated: 'An event is successfully updated!',
+        event_deleted: 'An event is successfully deleted!',
+        calendar_added: 'A new calendar is added!',
+        calendar_updated: 'A calendar has been updated!',
+        calendar_deleted: 'A calendar has been deleted!',
+        calendar_visibility_change: "A calendar's visibility has changed",
+        theme: 'Theme',
+        customize_theme_placeholder: "Customize",
+        narrow_weekend: 'Narrow weekend',
         todaysDate() {
             return FullDateString('en');;
         }
@@ -47,7 +67,7 @@ const Words = {
         task: 'Tâche',
         allday: 'Tous les jours',
         free: 'Libre',
-        busy: 'Occupé(e)',
+        busy: 'Occupé',
         title: 'Titre',
         location: 'Location',
         startdate: 'Date de début',
@@ -77,9 +97,28 @@ const Words = {
         change_calendar_view: 'Changer la vue du calendrier',
         other_options: 'Autres options',
         calendar: 'Calendrier',
+        calendars: 'Calendriers',
         mycalendars: 'Mes calendriers',
+        add_calendar: 'Ajouter un calendrier',
+        edit_calendar: 'Modifier le calendrier',
         show_task: 'Afficher les tâches',
         show_current_time: 'Afficher l\'heure actuelle',
+        delete_calendar_message: 'Attention! Tous les événements dans ce calendrier seront supprimés aussi. Voulez-vous le supprimer quand-même?',
+        delete_calendar: 'Supprimer le calendrier',
+        yes_delete: 'Oui, supprimer-le',
+        no_cancel: "Non, annuler",
+        calendar_name_placeholder: "Nom du calendrier",
+        mycalendar_search_placeholder: "Chercher vos calendriers",
+        event_added: 'Un événement a été ajouté!',
+        event_updated: 'Un événement a été modifié!',
+        event_deleted: 'Un événement a été supprimé!',
+        calendar_added: 'Un nouveau calendrier a été ajouté!',
+        calendar_updated: 'Un calendrier a été modifié!',
+        calendar_deleted: 'Un calendrier a été supprimé!',
+        calendar_visibility_change: "La visibilité d'un calendrier a été modifiée",
+        theme: 'Thème',
+        customize_theme_placeholder: "Personnaliser",
+        narrow_weekend: 'Réduire les colonnes weekend',
         todaysDate() {
             return FullDateString('fr');
         }
@@ -96,7 +135,10 @@ const FullDateString = (Lang = 'en') => {
 // change lang for tag with data-key attributes
 document.querySelectorAll('[data-key]').forEach(tag => {
     const dataKey = tag.getAttribute('data-key');
-    tag.textContent = Words[Lang][dataKey];
+    if (dataKey.includes('_placeholder'))
+        tag.placeholder = Words[Lang][dataKey];
+    else 
+        tag.textContent = Words[Lang][dataKey];
 });
 
 calendar.setOptions({
@@ -166,6 +208,9 @@ calendar.setOptions({
         
         goingDuration(event) {
             return `<span>${event.goingDuration}</span>`;
+        },
+        popupDetailBody({ body }) {
+            return body;
         },
     },
     week: {

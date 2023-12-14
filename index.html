@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +11,19 @@
     <link rel="stylesheet" href="custom-checkbox.css">
     <link rel="stylesheet" href="tui-assets/css/tui-custom.css">
     <!-- <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CDN -->
     <link rel="stylesheet" href="tui-assets/css/toastui-calendar.min.css" />
     <!-- tui -->
     <link rel="stylesheet" href="tui-assets/css/tui-date-picker.css">
     <link rel="stylesheet" href="tui-assets/css/tui-time-picker.css">
 </head>
+
 <body>
     <div class="calendar-container">
 
@@ -52,62 +58,186 @@
                     <!-- displays dates here -->
                 </div>
             </div>
-
-            <fieldset class="calendars">
-                <legend class="calendars-title" data-key="change_calendar_view">Change calendar view</legend>
-                <div class="display-options">
-                    <label class="option-item">
-                        <input type="radio" name="default-view" value="day" checked>
-                        <span data-key="day">Day</span>
-                    </label>
-                    <label class="option-item">
-                        <input type="radio" name="default-view" value="week">
-                        <span data-key="week">Week</span>
-                    </label>
-                    <label class="option-item">
-                        <input type="radio" name="default-view" value="month">
-                        <span data-key="month">Month</span>
-                    </label>
-                </div>
-            </fieldset>
-            
-            <fieldset class="calendars">
-                <legend class="calendars-title" data-key="other_options">Other options</legend>
-                <div class="display-options">
-                    <label class="option-item">
-                        <input type="checkbox" id="show-task">
-                        <span data-key="show_task">Show task</span>
-                    </label>
-                    <label class="option-item">
-                        <input type="checkbox" id="show-currenttime" checked>
-                        <span data-key="show_current_time">Show current time</span>
-                    </label>
-                </div>
-            </fieldset>
-
-            <!-- Calendars list -->
-            <fieldset class="calendars">
-                <legend class="calendars-title" data-key="mycalendars">Calendars</legend>
-                <div class="calendars-list" id="calendars-list">
-                    <div class="calendars-item">
-                        <div class="checkbox-wrapper-18">
-                            <div class="round">
-                                <input type="checkbox" id="checkbox-18" />
-                                <label for="checkbox-18"></label>
-                            </div>
-                        </div>
-                        <label for="checkbox-18">Calendar item</label>
+            <div class="other-menu">
+                <fieldset class="calendars">
+                    <legend class="calendars-title" data-key="change_calendar_view">Change calendar view</legend>
+                    <div class="display-options">
+                        <label class="option-item">
+                            <input type="radio" name="default-view" value="day" checked>
+                            <span data-key="day">Day</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="default-view" value="week">
+                            <span data-key="week">Week</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="default-view" value="month">
+                            <span data-key="month">Month</span>
+                        </label>
                     </div>
-                </div>
-            </fieldset>
+                </fieldset>
+
+                <fieldset class="calendars">
+                    <legend class="calendars-title" data-key="other_options">Other options</legend>
+                    <div class="display-options">
+                        <label class="option-item">
+                            <input type="checkbox" id="show-task">
+                            <span data-key="show_task">Show task</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" id="show-currenttime" checked>
+                            <span data-key="show_current_time">Show current time</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" id="narrow-weekend" checked>
+                            <span data-key="narrow_weekend">Narrow weekend</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Calendars list -->
+                <fieldset class="calendars">
+                    <legend class="calendars-title" data-key="calendars">Calendars</legend>
+                    <div class="calendars-list" id="calendars-list">
+                        <div class="calendars-item">
+                            <div class="checkbox-wrapper-18">
+                                <div class="round">
+                                    <input type="checkbox" id="checkbox-18" />
+                                    <label for="checkbox-18"></label>
+                                </div>
+                            </div>
+                            <label for="checkbox-18">Calendar item</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="calendars">
+                    <legend class="calendars-title" data-key="mycalendars">Calendars</legend>
+                    <div class="my-calendar-search">
+                        <i class="fas fa-search"></i>
+                        <input type="search" placeholder="Search calendar" oninput="searchMyCalendar(this)" data-key="mycalendar_search_placeholder">
+                    </div>
+                    <div class="calendars-list" id="my-calendars-list">
+                        <div class="calendars-item">
+                            <div class="checkbox-wrapper-18">
+                                <div class="round">
+                                    <input type="checkbox" id="checkbox-18" />
+                                    <label for="checkbox-18"></label>
+                                </div>
+                            </div>
+                            <label for="checkbox-18">Calendar item</label>
+                        </div>
+                    </div>
+                    <div class="calendars-list">
+                        <button class="calendars-add" id="add-calendar" modal-target="#add-calendar-modal">
+                            <i class="fas fa-plus"></i>
+                            <span data-key="add_calendar">Add Calendar</span>
+                        </button>
+                    </div>
+                </fieldset>
+            </div>
         </div>
-    
+
 
         <div class="timetable" id="calendar">
         </div>
+
+        <!-- Add calendar form -->
+        <div class="calendar-modal" id="add-calendar-modal">
+            <form id="add-calendar-form" class="add-calendar-form toastui-calendar-form-container">
+                <h2 class="form-title" data-key="add_calendar">Add Calendar</h2>
+
+                <div class="toastui-calendar-popup-section-item toastui-calendar-popup-section-title">
+                    <span class="toastui-calendar-icon toastui-calendar-ic-title"></span>
+                    <input type="text" id="calendar-name-input" class="toastui-calendar-content" required placeholder="Calendar name" data-key="calendar_name_placeholder">
+                </div>
+                
+                <div class="toastui-calendar-popup-section toastui-calendar-dropdown-section toastui-calendar-calendar-section">
+                    <button type="button" class="toastui-calendar-popup-section-item toastui-calendar-popup-button calendar-theme-dropdown">
+                        <span class="toastui-calendar-icon toastui-calendar-dot calendar-theme-shape" style="background-color: #EC148F;" id="calendar-theme-selected"></span>
+                        <span class="toastui-calendar-content toastui-calendar-event-calendar" data-key="theme">Theme</span>
+                        <span class="toastui-calendar-icon toastui-calendar-ic-dropdown-arrow"></span>
+                    </button>
+                    <ul class="toastui-calendar-dropdown-menu calendar-theme-list">
+                        <li class="toastui-calendar-dropdown-menu-item">
+                            <input type="color" id="edit-calendar-custom-color" value="#ffffff" class="calendar-color_picker" placeholder="Customize color" data-key="customize_theme_placeholder">
+                        </li>
+                    </ul>
+                </div>
+
+                <button type="button" class="toastui-calendar-popup-button toastui-calendar-popup-close" modal-close="#add-calendar-modal">
+                    <i class="toastui-calendar-icon toastui-calendar-ic-close"></i>
+                </button>
+                <div class="toastui-calendar-popup-section">
+                    <button type="submit" class="toastui-calendar-popup-button toastui-calendar-popup-confirm" id="calendar-theme-submit">
+                        <span><div class="toastui-calendar-template-popupSave" data-key="add">Ajouter</div></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Edit calendar form -->
+        <div class="calendar-modal" id="edit-calendar-modal" hidden>
+            <form id="edit-calendar-form" class="add-calendar-form toastui-calendar-form-container">
+                <h2 class="form-title" data-key="edit_calendar">Edit Calendar</h2>
+
+                <div class="toastui-calendar-popup-section-item toastui-calendar-popup-section-title">
+                    <span class="toastui-calendar-icon toastui-calendar-ic-title"></span>
+                    <input type="text" id="edit-calendar-name-input" class="toastui-calendar-content" required placeholder="Calendar name" data-key="calendar_name_placeholder">
+                    <input type="hidden" id="edit-calendar-id">
+                </div>
+                
+                <div class="toastui-calendar-popup-section toastui-calendar-dropdown-section toastui-calendar-calendar-section">
+                    <button type="button" class="toastui-calendar-popup-section-item toastui-calendar-popup-button calendar-theme-dropdown">
+                        <span class="toastui-calendar-icon toastui-calendar-dot calendar-theme-shape" style="background-color: #EC148F;" id="edit-calendar-theme-selected"></span>
+                        <span class="toastui-calendar-content toastui-calendar-event-calendar" data-key="theme">Theme</span>
+                        <span class="toastui-calendar-icon toastui-calendar-ic-dropdown-arrow"></span>
+                    </button>
+                    <ul class="toastui-calendar-dropdown-menu calendar-theme-list">
+                        <li class="toastui-calendar-dropdown-menu-item">
+                            <input type="color" id="edit-calendar-custom-color" value="#ffffff" class="calendar-color_picker" placeholder="Customize color" data-key="customize_theme_placeholder">
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" class="toastui-calendar-popup-button toastui-calendar-popup-close" modal-close="#edit-calendar-modal">
+                    <i class="toastui-calendar-icon toastui-calendar-ic-close"></i>
+                </button>
+                <div class="toastui-calendar-popup-section">
+                    <button type="submit" class="toastui-calendar-popup-button toastui-calendar-popup-confirm" id="calendar-theme-submit">
+                        <span><div class="toastui-calendar-template-popupSave" data-key="update">Ajouter</div></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Delete calendar form -->
+        <div class="calendar-modal" id="delete-calendar-modal">
+            <form id="delete-calendar-form" class="add-calendar-form toastui-calendar-form-container">
+                <h2 class="form-title" data-key="delete_calendar">Delete calendar</h2>
+                <h3 class="calendar-name"><span id="delete-calendar-name">Birthday</span></h3>
+                <input type="hidden" id="delete-calendar-id">
+                <p class="delete-calendar-message" data-key="delete_calendar_message">Be carefull, all events in this calendar will be deleted too. Do you want to delete anyway?</p>
+                <button type="button" class="toastui-calendar-popup-button toastui-calendar-popup-close" modal-close="#delete-calendar-modal">
+                    <i class="toastui-calendar-icon toastui-calendar-ic-close"></i>
+                </button>
+                <div class="toastui-calendar-popup-section">
+                    <button type="submit" class="toastui-calendar-popup-button toastui-calendar-popup-confirm" id="calendar-theme-submit">
+                        <span><div class="toastui-calendar-template-popupSave" data-key="delete">Delete</div></span>
+                    </button>
+                    <button type="button" class="toastui-calendar-popup-button toastui-calendar-popup-confirm toastui-calendar-popup-cancel" modal-close="#delete-calendar-modal">
+                        <span><div class="toastui-calendar-template-popupSave" data-key="no_cancel">Delete</div></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="toast-alert">
+        <p>Event updated successfully</p>
     </div>
     <!-- with CDN and browser environment namespace -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="tui-assets/js/tui-time-picker.js"></script>
     <script src="tui-assets/js/tui-date-picker.js"></script>
     <script src="tui-assets/js/toastui-calendar.ie11.min.js"></script>
@@ -141,7 +271,7 @@
                 // isAllday: true,
                 // category: 'allday',
             },
-            
+
             {
                 id: 'event4',
                 calendarId: 'cal1',
@@ -161,34 +291,8 @@
                     fontSize: '15px',
                 },
             }, // EventObject
-        ]; 
-        const calendars = [
-                {
-                    id: 'cal1',
-                    name: 'Personal',
-                    color: '#ffffff',
-                    backgroundColor: '#9e5fff',
-                    dragBackgroundColor: '#9e5fff',
-                    borderColor: '#9e5fff',
-                },
-                {
-                    id: 'cal2',
-                    name: 'Work',
-                    color: '#ffffff',
-                    backgroundColor: '#00a9ff',
-                    dragBackgroundColor: '#00a9ff',
-                    borderColor: '#00a9ff',
-                },
-                {
-                    id: 'cal3',
-                    name: 'Birthday',
-                    color: '#ffffff',
-                    backgroundColor: '#ff5f5f',
-                    dragBackgroundColor: '#ff5f5f',
-                    borderColor: '#ff5f5f',
-                    allday: true
-                },
         ];
+
         const options = {
             defaultView: 'day',
             isReadOnly: false,
@@ -201,7 +305,7 @@
                     },
                 ],
             },
-            calendars: calendars,
+            calendars: DEFAULT_CALENDARS,
             useFormPopup: true,
             useDetailPopup: true
         };
@@ -214,9 +318,9 @@
                 startDayOfWeek: new Date().getDay()
             }
         });
-        
+
         // get calendars
-        var calendarInnerHTML = calendars.map(calendar => {
+        var calendarInnerHTML = DEFAULT_CALENDARS.map(calendar => {
             return `
             <div class="calendars-item">
                 <div class="checkbox-wrapper-18">
@@ -236,17 +340,19 @@
         calendar.setOptions({
             week: {
                 taskView: TasksView.get(),
-                showNowIndicator: CurrentTimeVisibility.get()
+                showNowIndicator: CurrentTimeVisibility.get(),
+                narrowWeekend: NarrowWeekend.get()
             }
         });
         document.querySelector('#show-task').checked = TasksView.get();
         document.querySelector('#show-currenttime').checked = CurrentTimeVisibility.get();
+        document.querySelector('#narrow-weekend').checked = NarrowWeekend.get();
 
         // event to change default view
         [...document.getElementsByName('default-view')].forEach(input => {
             // activate calendar view accordings to the stored option
             input.checked = CalendarView.get() === input.value;
-            
+
             input.addEventListener('click', () => {
                 const view = input.value;
                 calendar.changeView(view)
@@ -263,11 +369,11 @@
                     taskView: isChecked,
                 }
             });
+            calendar.render();
 
             TasksView.set(isChecked);
-            // calendar.render();
         });
-        
+
         // Show current time in calendar. event handler
         document.querySelector('#show-currenttime').addEventListener('click', (e) => {
             calendar.setOptions({
@@ -278,6 +384,16 @@
             CurrentTimeVisibility.set(e.target.checked);
         });
 
+        // Calendar narrow weekend
+        document.querySelector('#narrow-weekend').addEventListener('click', (e) => {
+            calendar.setOptions({
+                week: {
+                    narrowWeekend: e.target.checked,
+                }
+            });
+            NarrowWeekend.set(e.target.checked);
+        });
+
         // Calendar check event 800 1100 1400
         document.querySelectorAll('#calendars-list input[type="checkbox"]').forEach(input => {
             input.addEventListener('change', () => {
@@ -285,9 +401,13 @@
                 calendar.setCalendarVisibility(input.value, isChecked);
             });
         });
+        
     </script>
     <script src="utils/calendar-lang.js"></script>
-    <script src="utils/calendar-event.js"></script>
+    <script src="utils/calendar-toast.js"></script>
+    <script src="utils/calendar-events-handler.js"></script>
+    <script src="utils/calendar-theme.js"></script>
     <script src="utils/calendar.js"></script>
 </body>
+
 </html>
