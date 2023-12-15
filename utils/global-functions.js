@@ -108,7 +108,9 @@ const CalendarTemplate = (calendar) => {
         <div class="checkbox-wrapper-18">
           <div class="round">
             <input type="checkbox" id="checkbox-${calendar._id}" ${calendar.isChecked && 'checked'} onChange="updateCalendarCheck('${calendar._id}', ${!calendar.isChecked})" />
-            <label for="checkbox-${calendar._id}" style="background-color: ${calendar.backgroundColor};border-color: ${calendar.backgroundColor}"></label>
+            <label for="checkbox-${calendar._id}" style="background-color: ${calendar.backgroundColor};border-color: ${calendar.backgroundColor}">
+                <span class="check-icon" style="border-color: ${calendar.color} !important;"></span>
+            </label>
           </div>
         </div>
         <label for="checkbox-${calendar._id}" class="one-line">${calendar.name}</label>

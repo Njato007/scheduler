@@ -4,6 +4,8 @@
  */
 const BaseUrl = 'http://localhost:3000';
 
+// const BaseUrl = window.location.origin;
+
 // Populate calendar
 const getLocaleEvents = () => {
   const events = localStorage.getItem('calendar-events'); 

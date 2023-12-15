@@ -66,3 +66,12 @@ tr.tui-calendar-week td{
 .toastui-calendar-popup-cancel:hover {
     background-color: #181818 !important;
 }
+
+div[role="dialog"].toastui-calendar-popup-container {
+    transition: all cubic-bezier(0.215, 0.610, 0.355, 1) .3s;
+}
+
+div.toastui-calendar-panel.toastui-calendar-time {
+    /* height: 80% !important; */
+    /* padding-bottom: 1rem !important; */
+}

@@ -1,4 +1,4 @@
-const Lang = 'en';
+const Lang = 'fr';
 
 const Words = {
     en: {
@@ -7,7 +7,7 @@ const Words = {
         allday: 'All day',
         free: 'Free',
         busy: 'Busy',
-        title: 'Title',
+        title: 'Event name',
         location: 'Location',
         startdate: 'Start date',
         enddate: 'End date',
@@ -40,8 +40,8 @@ const Words = {
         mycalendars: 'My Calendars',
         add_calendar: 'Add calendar',
         edit_calendar: 'Edit calendar',
-        show_task: 'Show tasks',
-        show_current_time: 'Show current time',
+        show_task: 'Tasks',
+        show_current_time: 'Current time',
         delete_calendar_message: 'Be carefull! All events in this calendar will be deleted too. Do you want to delete anyway?',
         delete_calendar: 'Delete calendar',
         yes_delete: 'Delete it',
@@ -65,10 +65,10 @@ const Words = {
     fr: {
         milestone: 'Milestone',
         task: 'Tâche',
-        allday: 'Tous les jours',
+        allday: 'Journée entière',
         free: 'Libre',
         busy: 'Occupé',
-        title: 'Titre',
+        title: "Nom de l'événement",
         location: 'Location',
         startdate: 'Date de début',
         enddate: 'Date de fin',
@@ -101,8 +101,8 @@ const Words = {
         mycalendars: 'Mes calendriers',
         add_calendar: 'Ajouter un calendrier',
         edit_calendar: 'Modifier le calendrier',
-        show_task: 'Afficher les tâches',
-        show_current_time: 'Afficher l\'heure actuelle',
+        show_task: 'Tâches',
+        show_current_time: 'Heure actuelle',
         delete_calendar_message: 'Attention! Tous les événements dans ce calendrier seront supprimés aussi. Voulez-vous le supprimer quand-même?',
         delete_calendar: 'Supprimer le calendrier',
         yes_delete: 'Oui, supprimer-le',
@@ -118,7 +118,7 @@ const Words = {
         calendar_visibility_change: "La visibilité d'un calendrier a été modifiée",
         theme: 'Thème',
         customize_theme_placeholder: "Personnaliser",
-        narrow_weekend: 'Réduire les colonnes weekend',
+        narrow_weekend: 'Réduire weekend',
         todaysDate() {
             return FullDateString('fr');
         }

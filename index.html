@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="custom-checkbox.css">
     <link rel="stylesheet" href="tui-assets/css/tui-custom.css">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -40,8 +40,8 @@
                             <h1 id="c-year">Year</h1>
                         </div>
                         <div class="pagination">
-                            <i class="fas fa-angle-left prev"></i>
-                            <i class="fas fa-angle-right next"></i>
+                            <i class="fas fa-angle-left prev" id="prev"></i>
+                            <i class="fas fa-angle-right next" id="next"></i>
                         </div>
                     </div>
                 </div>
@@ -59,27 +59,68 @@
                 </div>
             </div>
             <div class="other-menu">
-                <fieldset class="calendars">
-                    <legend class="calendars-title" data-key="change_calendar_view">Change calendar view</legend>
-                    <div class="display-options">
-                        <label class="option-item">
-                            <input type="radio" name="default-view" value="day" checked>
-                            <span data-key="day">Day</span>
-                        </label>
-                        <label class="option-item">
-                            <input type="radio" name="default-view" value="week">
-                            <span data-key="week">Week</span>
-                        </label>
-                        <label class="option-item">
-                            <input type="radio" name="default-view" value="month">
-                            <span data-key="month">Month</span>
-                        </label>
-                    </div>
-                </fieldset>
+                <div class="calendars-container">
+                    <!-- Calendars list -->
+                    <fieldset class="calendars">
+                        <legend class="calendars-title" data-key="calendars">Calendars</legend>
+                        <div class="calendars-list" id="calendars-list">
+                            <div class="calendars-item">
+                                <div class="checkbox-wrapper-18">
+                                    <div class="round">
+                                        <input type="checkbox" id="checkbox-18" />
+                                        <label for="checkbox-18"></label>
+                                    </div>
+                                </div>
+                                <label for="checkbox-18">Calendar item</label>
+                            </div>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset class="calendars">
+                        <legend class="calendars-title" data-key="mycalendars">Calendars</legend>
+                        <div class="my-calendar-search">
+                            <i class="fas fa-search"></i>
+                            <input type="search" placeholder="Search calendar" oninput="searchMyCalendar(this)" data-key="mycalendar_search_placeholder">
+                        </div>
+                        <div class="calendars-list" id="my-calendars-list">
+                            <div class="calendars-item">
+                                <div class="checkbox-wrapper-18">
+                                    <div class="round">
+                                        <input type="checkbox" id="checkbox-18" />
+                                        <label for="checkbox-18">
+                                            <span class="check-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <label for="checkbox-18">Calendar item</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="add-calendars-form">
+                    <button class="calendars-add" id="add-calendar" modal-target="#add-calendar-modal">
+                        <i class="fas fa-plus"></i>
+                        <span data-key="add_calendar">Add Calendar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-                <fieldset class="calendars">
-                    <legend class="calendars-title" data-key="other_options">Other options</legend>
-                    <div class="display-options">
+        <div class="timetable">
+            <div class="options">
+                <div class="day-switcher">
+                    <h1>Today</h1>
+                    <div class="day-switcher-buttons">
+                        <button>
+                            <i class="fas fa-angle-left fa-lg" id="day-prev"></i>
+                        </button>
+                        <button>
+                            <i class="fas fa-angle-right fa-lg" id="day-next"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="others">
+                    <div class="calendar-other-options">
                         <label class="option-item">
                             <input type="checkbox" id="show-task">
                             <span data-key="show_task">Show task</span>
@@ -93,53 +134,25 @@
                             <span data-key="narrow_weekend">Narrow weekend</span>
                         </label>
                     </div>
-                </fieldset>
-
-                <!-- Calendars list -->
-                <fieldset class="calendars">
-                    <legend class="calendars-title" data-key="calendars">Calendars</legend>
-                    <div class="calendars-list" id="calendars-list">
-                        <div class="calendars-item">
-                            <div class="checkbox-wrapper-18">
-                                <div class="round">
-                                    <input type="checkbox" id="checkbox-18" />
-                                    <label for="checkbox-18"></label>
-                                </div>
-                            </div>
-                            <label for="checkbox-18">Calendar item</label>
-                        </div>
+                    <div class="calendar-view-options">
+                        <label class="option-item">
+                            <input type="radio" name="default-view" value="day" checked>
+                            <span data-key="day">Day</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="default-view" value="week">
+                            <span data-key="week">Week</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="default-view" value="month">
+                            <span data-key="month">Month</span>
+                        </label>
                     </div>
-                </fieldset>
-
-                <fieldset class="calendars">
-                    <legend class="calendars-title" data-key="mycalendars">Calendars</legend>
-                    <div class="my-calendar-search">
-                        <i class="fas fa-search"></i>
-                        <input type="search" placeholder="Search calendar" oninput="searchMyCalendar(this)" data-key="mycalendar_search_placeholder">
-                    </div>
-                    <div class="calendars-list" id="my-calendars-list">
-                        <div class="calendars-item">
-                            <div class="checkbox-wrapper-18">
-                                <div class="round">
-                                    <input type="checkbox" id="checkbox-18" />
-                                    <label for="checkbox-18"></label>
-                                </div>
-                            </div>
-                            <label for="checkbox-18">Calendar item</label>
-                        </div>
-                    </div>
-                    <div class="calendars-list">
-                        <button class="calendars-add" id="add-calendar" modal-target="#add-calendar-modal">
-                            <i class="fas fa-plus"></i>
-                            <span data-key="add_calendar">Add Calendar</span>
-                        </button>
-                    </div>
-                </fieldset>
+                </div>
             </div>
-        </div>
+            <div id="c-calendar">
 
-
-        <div class="timetable" id="calendar">
+            </div>
         </div>
 
         <!-- Add calendar form -->
@@ -244,7 +257,7 @@
     <script src="utils/global-functions.js"></script>
     <script>
         const Calendar = tui.Calendar;
-        const container = document.getElementById('calendar');
+        const container = document.getElementById('c-calendar');
         const currentTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const events = [
             {
@@ -326,7 +339,9 @@
                 <div class="checkbox-wrapper-18">
                     <div class="round">
                         <input type="checkbox" id="${calendar.id}" checked value="${calendar.id}"/>
-                        <label for="${calendar.id}" style="background-color: ${calendar.backgroundColor};border-color: ${calendar.backgroundColor}"></label>
+                        <label for="${calendar.id}" style="background-color: ${calendar.backgroundColor};border-color: ${calendar.backgroundColor}">
+                            <span class="check-icon" style="border-color: ${calendar.color} !important;"></span>
+                        </label>
                     </div>
                 </div>
                 <label for="${calendar.id}">${calendar.name}</label>
@@ -401,7 +416,51 @@
                 calendar.setCalendarVisibility(input.value, isChecked);
             });
         });
-        
+
+        /* POSITIONING DIALOG */
+        const leftSide = document.querySelector('.left-side');
+        // set position of event details
+        calendar.on('clickEvent', (eventInfo) => {
+            const rect = container.getBoundingClientRect();
+            setTimeout(() => {
+
+                const dialog = document.querySelector('div[role="dialog"].toastui-calendar-popup-container');
+                let dialogTop = parseFloat(dialog.style.top.replace('px', ''));
+                let dialogLeft = parseFloat(dialog.style.left.replace('px', ''));;
+                // set top 
+                dialog.style.top = `${Math.abs(dialogTop - rect.top - scrollY)}px`;
+                let rectLeft = rect.left > 0 ? rect.left - leftSide.clientWidth : 0;
+                dialog.style.left = `${Math.abs(dialogLeft - rectLeft - scrollX)}px`;
+
+                const editBtn = dialog.querySelector('button.toastui-calendar-edit-button');
+                editBtn.addEventListener('click', () => {
+                    setTimeout(() => {
+                        const dialog = document.querySelector('div[role="dialog"].toastui-calendar-popup-container');
+                        let dialogTop = parseFloat(dialog.style.top.replace('px', ''));
+                        let dialogLeft = parseFloat(dialog.style.left.replace('px', ''));;
+                        // set top 
+                        dialog.style.top = `${Math.abs(dialogTop - rect.top - scrollY)}px`;
+                        let rectLeft = rect.left > 0 ? rect.left - leftSide.clientWidth : 0;
+                        dialog.style.left = `${Math.abs(dialogLeft - rectLeft - scrollX)}px`;
+                    }, 10);
+                })
+            }, 10);
+        });
+        // set dialog position while creating event by clicking
+        calendar.on('selectDateTime', (eventInfo) => {
+            const rect = container.getBoundingClientRect();
+            setTimeout(() => {
+                const dialog = document.querySelector('div[role="dialog"].toastui-calendar-popup-container');
+                let dialogTop = parseFloat(dialog.style.top.replace('px', ''));
+                let dialogLeft = parseFloat(dialog.style.left.replace('px', ''));;
+                // set top 
+                dialog.style.top = `${Math.abs(dialogTop - rect.top - scrollY)}px`;
+                let rectLeft = rect.left > 0 ? rect.left - leftSide.clientWidth : 0;
+                dialog.style.left = `${Math.abs(dialogLeft - rectLeft - scrollX)}px`;
+            }, 10);
+        });
+
+
     </script>
     <script src="utils/calendar-lang.js"></script>
     <script src="utils/calendar-toast.js"></script>
