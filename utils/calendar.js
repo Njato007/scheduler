@@ -1,6 +1,6 @@
 const date = new Date();
 
-var currentDate = date.getDate();
+var currentDate = new Date();
 
 const renderCalendar = (date) => {
     
@@ -39,7 +39,7 @@ const renderCalendar = (date) => {
     // display all days
     for (let i = 1; i <= lastDay; i++) {
         // current date class
-        var activeClass = currentDate === i ? 'active' : '';
+        var activeClass = currentDate.getDate() === i && date.getMonth() === currentDate.getMonth() ? 'active' : '';
         // show to day date
         if (i === new Date().getDate() && date.getMonth() === new Date().getMonth()) {
             days += `<div class="today ${activeClass}">${i}</div>`;
@@ -77,7 +77,7 @@ const renderCalendar = (date) => {
             const selectedDate = new Date(date.getFullYear(), selectedMonth, selectedDay);
             
             // set selected date to current date
-            currentDate = selectedDate.getDate();
+            currentDate = selectedDate;
 
             // change days in tui calendar
             if (calendar) {
@@ -95,15 +95,24 @@ const renderCalendar = (date) => {
 }
 
 // prev event handler
-document.querySelector('.prev').addEventListener('click', () => {
+document.querySelector('#prev').addEventListener('click', () => {
     date.setMonth(date.getMonth() - 1, 1)
     renderCalendar(date);
 });
 
 // next event handler
-document.querySelector('.next').addEventListener('click', () => {
+document.querySelector('#next').addEventListener('click', () => {
     date.setMonth(date.getMonth() + 1, 1);
     renderCalendar(date);
+});
+
+// day next and prev
+document.querySelector('#day-prev').addEventListener('click', () => {
+    
+});
+
+document.querySelector('#day-next').addEventListener('click', () => {
+    
 });
 
 
