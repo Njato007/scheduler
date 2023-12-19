@@ -24,8 +24,8 @@ const eventsData = (events) => {
 const eventData = (event) => {
   return ({
     ...event,
-    start: new Date(event.start.d.d).toISOString(),
-    end: new Date(event.end.d.d).toISOString(),
+    start: event.start?.d.d ? new Date(event.start.d.d).toISOString() : new Date().toISOString(),
+    end: event.start?.d.d ? new Date(event.end.d.d).toISOString() : new Date().toISOString(),
   }); 
 }
 const withId = (events) => events.map(event => ({...event, id: event._id}));
@@ -60,6 +60,8 @@ const addEvent = (eventObj) => {
 // Creating an event through popup
 calendar.on('beforeCreateEvent', (eventObj) => {
     // send data to server to add an event (POST)
+    const attendees = document.getElementsByName('attendees[]');
+    eventObj.attendees = [...attendees].map(input => input.value);
     axios({
       method: 'post',
       url: `${BaseUrl}/events/add`,
@@ -95,6 +97,9 @@ calendar.on('beforeUpdateEvent', ({ event, changes }) => {
   // const prevEvents = getLocaleEvents();
   // const newEvents = prevEvents.map(item => item.id === event.id ? {...item, ...changes} : item);
   // localStorage.setItem('calendar-events', JSON.stringify(newEvents));
+  
+  const attendees = document.getElementsByName('attendees[]');
+  changes.attendees = [...attendees].map(input => input.value);
 
   // check end and start and change to iso string (end.d.d)
   const changesObj = {...changes};
@@ -343,3 +348,7 @@ axios.get(`${BaseUrl}/calendars`)
 
 
 
+// before create event add category object in data
+// calendar.fire('beforeCreateEvent', {
+//   category: 'milestone'
+// });

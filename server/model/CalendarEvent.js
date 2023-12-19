@@ -14,6 +14,14 @@ const EventSchema = new Schema({
         type: Boolean,
         default: false
     },
+    category: {
+        type: String,
+        default: 'time'
+    },
+    attendees: {
+        type: Array,
+        default: []
+    },
     state: String,
     owner: String
 });

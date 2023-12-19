@@ -30,7 +30,12 @@ div.toastui-calendar-template-alldayTitle {
     font-size: .7rem;
     text-align: right;
     vertical-align: middle;
-    color:#363636;
+}
+
+div.toastui-calendar-template-milestoneTitle p,
+div.toastui-calendar-template-taskTitle p,
+div.toastui-calendar-template-alldayTitle p {
+    font-size: .6rem;
 }
 
 div.toastui-calendar-template-milestoneTitle span,
