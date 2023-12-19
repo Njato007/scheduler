@@ -1,0 +1,106 @@
+input#attendee {
+    border: 0 none;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-container input#attendee,
+.search-container .suggestions {
+    width: 100%;
+    background: #fff;
+    text-align: left;
+}
+
+.search-container input {
+    background: rgba(255, 255, 255, 0.2);
+    /* padding: 0 10px; */
+}
+
+.search-container .suggestions {
+    position: absolute;
+    top: 34px;
+    z-index: 100;
+}
+
+div.suggestions-list {
+    display: none;
+    width: 424px;
+    padding: .2rem 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #dfdfdf;
+    height: 100px;
+    background-color: white;
+    border-radius: .1rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+div.suggestions-list.has-suggestions {
+    display: flex;
+    flex-direction: column;
+}
+
+div.suggestions-list p {
+    color: black !important;
+    padding: .4rem;
+    cursor: pointer;
+    background: white;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+div.suggestions-list p:hover {
+    background-color: #b3b5f0;
+}
+
+.attendees-container {
+    padding: .3rem 2rem;
+    font-weight: 400;
+}
+.attendees-container h2 {
+    font-size: .75rem;
+    color: #3b3b3b;
+}
+.attendees-added {
+    padding: .3rem .1rem;
+    font-size: .75rem;
+    max-height: 150px;
+    overflow-y: auto;
+    border-left: 3px solid #4fa757;
+    margin: .2rem 0;
+}
+
+.attendees-added p {
+    padding: .2rem;
+    /* border-bottom: 1px solid #b3b5f0; */
+}
+.attendees-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .3rem .4rem;
+    border-radius: .1rem;
+    border: 2px solid transparent;
+    transition: all .2s ease;
+}
+.attendees-item:hover {
+    background-color: #dedfff;
+    border-bottom-color: #b3b5f0;
+}
+
+.attendees-item i {
+    padding: .2rem;
+    cursor: pointer;
+    color: #6b6b6b;
+    border-radius: 50%;
+}
+
+.attendees-item i:hover {
+    background-color: rgb(126, 48, 48);
+    color: #ffffff;
+}

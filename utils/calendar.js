@@ -31,8 +31,10 @@ const renderCalendar = (date) => {
     document.querySelector('.weekdays').innerHTML = Words[Lang].dayNames.map(week => `<div>${week.substring(0, 3)}</div>`).join('');
 
     let days = "";
+    var counter = 0;
     // display prev days
     for (let x = firstDayIndex; x > 0; x--) {
+        counter++;
         days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
     }
 
@@ -46,12 +48,23 @@ const renderCalendar = (date) => {
         } else {
             days += `<div class="${activeClass}">${i}</div>`;
         }
+        
+        counter++;
+    }
+    // this logic is used to fill calendar displayed
+    let newNextDays = nextDays;
+    if (counter === 28) {
+        newNextDays += 7 * 2;
+    } else if (counter >= 29 && counter <= 35) {
+        newNextDays += 7;
     }
 
+    console.log(counter, nextDays, (counter => 28 && counter <= 35))
     // display next days
-    for (let j = 1; j <= nextDays; j++) {
+    for (let j = 1; j <= newNextDays; j++) {
         days += `<div class="next-date">${j}</div>`;
     }
+
 
     monthDays_div.innerHTML = days;
 
@@ -78,6 +91,9 @@ const renderCalendar = (date) => {
             
             // set selected date to current date
             currentDate = selectedDate;
+            
+            // change the today displayed above the right calendar
+            renderTodayName();
 
             // change days in tui calendar
             if (calendar) {
@@ -104,16 +120,46 @@ document.querySelector('#prev').addEventListener('click', () => {
 document.querySelector('#next').addEventListener('click', () => {
     date.setMonth(date.getMonth() + 1, 1);
     renderCalendar(date);
+    // change the today displayed above the right calendar
+    renderTodayName();
 });
+
 
 // day next and prev
 document.querySelector('#day-prev').addEventListener('click', () => {
-    
+    currentDate.setDate(currentDate.getDate() - 1);
+    if (currentDate.getMonth() !== date.getMonth())
+        date.setMonth(date.getMonth() - 1, 1);
+    renderCalendar(date);
+    calendar.setDate(currentDate);
+    calendar.setOptions({
+        week: { startDayOfWeek: currentDate.getDay() }
+    });
+    // change the today displayed above the right calendar
+    renderTodayName();
 });
 
 document.querySelector('#day-next').addEventListener('click', () => {
-    
+    currentDate.setDate(currentDate.getDate() + 1);
+    // 
+    if (currentDate.getMonth() !== date.getMonth())
+        date.setMonth(date.getMonth() + 1, 1);
+    renderCalendar(date);
+    calendar.setDate(currentDate);
+    calendar.setOptions({
+        week: { startDayOfWeek: currentDate.getDay() }
+    });
+    // change the today displayed above the right calendar
+    renderTodayName();
 });
 
+function renderTodayName() {
+    const activeDayName_h1 = document.querySelector('.day-switcher h1');
+    // change the today displayed above the right calendar
+    let today = new Date();
+    activeDayName_h1.textContent = (today.getDate() === currentDate.getDate()
+        && today.getMonth() === currentDate.getMonth()) ? Words[Lang].today
+    : Words[Lang].dayNames[currentDate.getDay()];
+}
 
 renderCalendar(date);

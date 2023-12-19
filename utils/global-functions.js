@@ -15,9 +15,9 @@ const DEFAULT_CALENDARS = [
         id: 'cal2',
         name: 'Work',
         color: '#ffffff',
-        backgroundColor: '#D41C62',
-        dragBackgroundColor: '#D41C62',
-        borderColor: '#D41C62',
+        backgroundColor: '#EC1163',
+        dragBackgroundColor: '#EC1163',
+        borderColor: '#EC1163',
     },
     {
         id: 'cal3',
@@ -29,14 +29,34 @@ const DEFAULT_CALENDARS = [
     },
     {
         id: 'cal4',
-        name: 'Birthday',
+        name: 'Tasks',
         color: '#ffffff',
-        backgroundColor: '#E77E72',
-        dragBackgroundColor: '#E77E72',
-        borderColor: '#E77E72',
+        backgroundColor: '#AD489B',
+        dragBackgroundColor: '#AD489B',
+        borderColor: '#AD489B',
         allday: true
     },
 ];
+
+// category
+const EVENT_CATEGORIES = [
+    {
+        name: 'time',
+        classIcon: 'fas fa-clock time',
+    },
+    {
+        name: 'task',
+        classIcon: 'fas fa-hashtag task',
+    },
+    {
+        name: 'allday',
+        classIcon: 'fas fa-refresh allday',
+    },
+    {
+        name: 'milestone',
+        classIcon: 'toastui-calendar-icon toastui-calendar-ic-milestone',
+    },
+]
 
 // use with fetched calendars
 var CURRENT_CALENDARS = [];
@@ -89,12 +109,12 @@ const CurrentTimeVisibility = {
 }
 
 // Current Time
-const NarrowWeekend = {
+const WorkWeek = {
     set(is_narrow) {
-        localStorage.setItem('narrow-weekend', new String(is_narrow));
+        localStorage.setItem('work-week', new String(is_narrow));
     },
     get() {
-        const is_narrow = localStorage.getItem('narrow-weekend') || 'false';
+        const is_narrow = localStorage.getItem('work-week') || 'false';
         return JSON.parse(is_narrow);
     }
 }
@@ -115,8 +135,16 @@ const CalendarTemplate = (calendar) => {
         </div>
         <label for="checkbox-${calendar._id}" class="one-line">${calendar.name}</label>
         <div class="calendars-item-button">
-            <i class="fas fa-pencil calendars-item-icon calendars-item-edit" modal-target="#edit-calendar-modal" onClick="setEditCalendarModal('${calendar._id}')"></i>
-            <i class="fas fa-trash-alt calendars-item-icon calendars-item-delete" modal-target="#delete-calendar-modal" onClick="setDeleteCalendarModal('${calendar._id}')"></i>
+            <span modal-target="#edit-calendar-modal">
+                <button type="button" onClick="setEditCalendarModal('${calendar._id}')">
+                    <i class="fas fa-pencil calendars-item-icon calendars-item-edit"></i>
+                </button>
+            </span>
+            <span modal-target="#delete-calendar-modal">
+                <button type="button" onClick="setDeleteCalendarModal('${calendar._id}')">
+                    <i class="fas fa-trash-alt calendars-item-icon calendars-item-delete"></i>
+                </button>
+            </span>
         </div>
     `;
     return div;
@@ -236,4 +264,83 @@ function searchMyCalendar(input) {
         const name = new String(item.firstElementChild.nextElementSibling.textContent).toLowerCase();
         item.style.display = name.includes(key) ? 'flex' : 'none';
     })
+}
+
+function hideOtherOptions(view) {
+    const taskParent = document.querySelector('#show-task').parentElement;
+    const narrowWParent = document.querySelector('#work-week').parentElement;
+    const showCurrentParent = document.querySelector('#show-currenttime').parentElement;
+    taskParent.style.display = 'flex';
+    narrowWParent.style.display = 'flex'
+    showCurrentParent.style.display = 'flex';
+    if (view === 'day') {
+        narrowWParent.style.display = 'none'
+    } else if (view === 'month') {
+        taskParent.style.display = 'none';
+        narrowWParent.style.display = 'none'
+        showCurrentParent.style.display = 'none';
+    }
+}
+
+const categoryOptionTemplate = (check = 'time') => {
+    const div = document.createElement('div');
+    div.className = 'category-menu';
+
+    EVENT_CATEGORIES.map(category => {
+        div.innerHTML += `
+        <label class="category-item">
+            <input type="radio" name="category" value="${category.name}" ${check === category.name && 'checked'} hidden>
+            <span>
+            <i class="${category.classIcon}"></i>
+            ${Words[Lang].category[category.name]}
+            </span>
+        </label>`;
+    })
+
+    return div;
+
+}
+
+const attendeeTemplate = (attendees = []) => {
+    const div = document.createElement('div');
+    const attendeeItem = (attendee) => {
+        const dv = document.createElement('div');
+        const i = document.createElement('i');
+        i.className = 'fas fa-times';
+        i.onclick = () => {
+            const list = div.querySelector('div.attendees-added');
+            const container = div.querySelector('div.attendees-container');
+            dv.remove();
+            if (list.children.length === 0)
+                container.setAttribute('hidden', '');
+        }
+        dv.className = 'attendees-item';
+        dv.innerHTML =  `
+            <p>
+                <span class="toastui-calendar-icon toastui-calendar-ic-user-b"></span>
+                ${attendee}
+                <input type="hidden" value="${attendee}" name="attendees[]" /> 
+            </p>`;
+        dv.append(i);
+        return dv;
+    }
+
+    div.className = 'toastui-calendar-popup-section search-container';
+    div.innerHTML = `<div class="toastui-calendar-popup-section-item toastui-calendar-popup-section-attendee">
+            <span class="toastui-calendar-icon toastui-calendar-ic-user-b"></span>
+            <input id="attendee" class="toastui-calendar-content attendee-input" placeholder="Add attendee" autocomplete="off">
+            <div class="suggestions">
+                <div class="suggestions-list"></div>
+            </div>
+            <div class="attendees-container" ${attendees.length === 0 && 'hidden'}>
+                <h2>Attendees added</h2>
+                <div class="attendees-added">
+                </div>
+            </div>
+        </div>`;
+    attendees.map(attendee => {
+        div.querySelector('div.attendees-added').append(attendeeItem(attendee))
+    })
+    return div;
+
 }

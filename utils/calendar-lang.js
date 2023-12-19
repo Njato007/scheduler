@@ -5,6 +5,7 @@ const Words = {
         milestone: 'Milestone',
         task: 'Task',
         allday: 'All day',
+        isAllday: 'All day?',
         free: 'Free',
         busy: 'Busy',
         title: 'Event name',
@@ -58,14 +59,25 @@ const Words = {
         theme: 'Theme',
         customize_theme_placeholder: "Customize",
         narrow_weekend: 'Narrow weekend',
+        workweek: 'Work week',
+        today: 'Today',
+        private: 'Private',
+        add_event: 'Add event',
+        category: {
+            time: 'Time',
+            task: 'Task',
+            allday: 'All day',
+            milestone: 'Milestone'
+        },
         todaysDate() {
             return FullDateString('en');;
         }
     },
     fr: {
-        milestone: 'Milestone',
+        milestone: 'Etape importante',
         task: 'Tâche',
         allday: 'Journée entière',
+        isAllday: 'Journée entière?',
         free: 'Libre',
         busy: 'Occupé',
         title: "Nom de l'événement",
@@ -119,6 +131,16 @@ const Words = {
         theme: 'Thème',
         customize_theme_placeholder: "Personnaliser",
         narrow_weekend: 'Réduire weekend',
+        workweek: 'Semaine de travail',
+        today: "Aujourd'hui",
+        private: 'Privé',
+        add_event: 'Ajouter un événement',
+        category: {
+            time: 'Heure',
+            task: 'Tâche',
+            allday: 'Toute la journée',
+            milestone: 'Etape importante'
+        },
         todaysDate() {
             return FullDateString('fr');
         }
@@ -133,13 +155,20 @@ const FullDateString = (Lang = 'en') => {
 }
 
 // change lang for tag with data-key attributes
-document.querySelectorAll('[data-key]').forEach(tag => {
-    const dataKey = tag.getAttribute('data-key');
+document.querySelectorAll('[cdata-key]').forEach(tag => {
+    const dataKey = tag.getAttribute('cdata-key');
     if (dataKey.includes('_placeholder'))
         tag.placeholder = Words[Lang][dataKey];
     else 
         tag.textContent = Words[Lang][dataKey];
 });
+
+const startEndTime = (event) => {
+    const start = new Date(event.start.d.d);
+    const end = new Date(event.end.d.d);
+
+    return event.isAllday ? '' : `<b>${customTime(start, Lang === 'en')} - ${customTime(end, Lang === 'en')}</b>`
+}
 
 calendar.setOptions({
     template: {
@@ -164,7 +193,7 @@ calendar.setOptions({
         },
         // POPUP
         popupIsAllday() {
-            return Words[Lang].allday;
+            return Words[Lang].isAllday;
         },
         popupStateFree() {
             return Words[Lang].free;
@@ -198,14 +227,56 @@ calendar.setOptions({
         },
 
         time(event) {
-            const start = new Date(event.start.d.d)
-            const end = new Date(event.end.d.d)
-            return `<p class="event-template">
-                <b>${customTime(start, Lang === 'en')} - ${customTime(end, Lang === 'en')}</b> <br/>
-                <span>${event.title}</span>
-            </p>`;
+            if (event.isPrivate) {
+                return `<p class="event-template">
+                    <i class="fas fa-clock"></i>
+                    <b>${startEndTime(event)}</b>
+                    <i class="fas fa-lock"></i>
+                    <span>${Words[Lang].private}</span>
+                </p>`;
+            } else {
+                return `<p class="event-template">
+                    <i class="fas fa-clock"></i>
+                    <b>${startEndTime(event)}</b> <br/>
+                    <span>${event.title}</span>
+                </p>`;
+            }
         },
-        
+        task(event) {
+            if (event.isPrivate) {
+                return `
+                <p>
+                    <i class="fas fa-hashtag"></i>
+                    <b>${startEndTime(event)}</b>
+                    <i class="fas fa-lock"></i>
+                    ${Words[Lang].private}
+                </p>`
+            }
+            return `
+                <p>
+                    <i class="fas fa-hashtag"></i>
+                    ${event.title}
+                </p>
+            `;
+        },
+        allday(event) {
+            if (event.isPrivate) {
+                return `
+                <p>
+                    <i class="fas fa-refresh"></i>
+                    <b>${startEndTime(event)}</b>
+                    <i class="fas fa-lock"></i>
+                    ${Words[Lang].private}
+                </p>`
+            }
+            return `
+                <p>
+                    <i class="fas fa-refresh"></i>
+                    <b>${startEndTime(event)}</b>
+                    ${event.title}
+                </p>
+            `;
+        },
         goingDuration(event) {
             return `<span>${event.goingDuration}</span>`;
         },
