@@ -286,6 +286,12 @@ const categoryOptionTemplate = (check = 'time') => {
     const div = document.createElement('div');
     div.className = 'category-menu';
 
+    div.innerHTML = `
+    <label class="category-item category">
+        <i class="fas fa-layer-group"></i>
+        <span>${Words[Lang].category.label}:</span>
+    </label>`;
+
     EVENT_CATEGORIES.map(category => {
         div.innerHTML += `
         <label class="category-item">
@@ -316,10 +322,13 @@ const attendeeTemplate = (attendees = []) => {
         }
         dv.className = 'attendees-item';
         dv.innerHTML =  `
-            <p>
-                <span class="toastui-calendar-icon toastui-calendar-ic-user-b"></span>
-                ${attendee}
-                <input type="hidden" value="${attendee}" name="attendees[]" /> 
+            <p id="${attendee._id}">
+                <span class="attendee-profile">
+                    <b>${getFirstLeter(attendee.name)}</b>
+                    <i class="fas fa-user-circle"></i>
+                </span>
+                ${attendee.name}
+                <input type="hidden" value="${attendee._id}" name="attendees[]" /> 
             </p>`;
         dv.append(i);
         return dv;
@@ -344,3 +353,9 @@ const attendeeTemplate = (attendees = []) => {
     return div;
 
 }
+
+function getFirstLeter(name = '') {
+    let splited = name.split(' ');
+    var firstLetter = splited.map(n => n.charAt(0)).join('');
+    return firstLetter.substring(0, 2)
+} 

@@ -18,12 +18,15 @@ const EventSchema = new Schema({
         type: String,
         default: 'time'
     },
-    attendees: {
-        type: Array,
-        default: []
-    },
+    attendees: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }],
     state: String,
-    owner: String
+    owner: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 module.exports = mongoose.model('CalendarEvent', EventSchema);

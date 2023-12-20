@@ -1,4 +1,4 @@
-const date = new Date();
+var DATE = new Date();
 
 var currentDate = new Date();
 
@@ -38,6 +38,7 @@ const renderCalendar = (date) => {
         days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
     }
 
+    console.log(currentDate.getDate())
     // display all days
     for (let i = 1; i <= lastDay; i++) {
         // current date class
@@ -59,7 +60,6 @@ const renderCalendar = (date) => {
         newNextDays += 7;
     }
 
-    console.log(counter, nextDays, (counter => 28 && counter <= 35))
     // display next days
     for (let j = 1; j <= newNextDays; j++) {
         days += `<div class="next-date">${j}</div>`;
@@ -88,9 +88,9 @@ const renderCalendar = (date) => {
             }
 
             const selectedDate = new Date(date.getFullYear(), selectedMonth, selectedDay);
-            
             // set selected date to current date
-            currentDate = selectedDate;
+            currentDate = new Date(selectedDate);
+            DATE = new Date(selectedDate);
             
             // change the today displayed above the right calendar
             renderTodayName();
@@ -112,14 +112,14 @@ const renderCalendar = (date) => {
 
 // prev event handler
 document.querySelector('#prev').addEventListener('click', () => {
-    date.setMonth(date.getMonth() - 1, 1)
-    renderCalendar(date);
+    DATE.setMonth(DATE.getMonth() - 1, 1)
+    renderCalendar(DATE);
 });
 
 // next event handler
 document.querySelector('#next').addEventListener('click', () => {
-    date.setMonth(date.getMonth() + 1, 1);
-    renderCalendar(date);
+    DATE.setMonth(DATE.getMonth() + 1, 1);
+    renderCalendar(DATE);
     // change the today displayed above the right calendar
     renderTodayName();
 });
@@ -128,9 +128,10 @@ document.querySelector('#next').addEventListener('click', () => {
 // day next and prev
 document.querySelector('#day-prev').addEventListener('click', () => {
     currentDate.setDate(currentDate.getDate() - 1);
-    if (currentDate.getMonth() !== date.getMonth())
-        date.setMonth(date.getMonth() - 1, 1);
-    renderCalendar(date);
+    if (currentDate.getMonth() !== DATE.getMonth()) {
+        DATE.setMonth(DATE.getMonth() - 1, 1);
+    }
+    renderCalendar(DATE);
     calendar.setDate(currentDate);
     calendar.setOptions({
         week: { startDayOfWeek: currentDate.getDay() }
@@ -142,9 +143,10 @@ document.querySelector('#day-prev').addEventListener('click', () => {
 document.querySelector('#day-next').addEventListener('click', () => {
     currentDate.setDate(currentDate.getDate() + 1);
     // 
-    if (currentDate.getMonth() !== date.getMonth())
-        date.setMonth(date.getMonth() + 1, 1);
-    renderCalendar(date);
+    if (currentDate.getMonth() !== DATE.getMonth())
+        DATE.setMonth(DATE.getMonth() + 1, 1);
+
+    renderCalendar(DATE);
     calendar.setDate(currentDate);
     calendar.setOptions({
         week: { startDayOfWeek: currentDate.getDay() }
@@ -162,4 +164,4 @@ function renderTodayName() {
     : Words[Lang].dayNames[currentDate.getDay()];
 }
 
-renderCalendar(date);
+renderCalendar(DATE);

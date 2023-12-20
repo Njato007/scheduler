@@ -2,7 +2,7 @@ const CalendarEvent = require("../model/CalendarEvent");
 
 const getEvents = async (req, res) => {
 
-  CalendarEvent.find()
+  CalendarEvent.find().populate('owner').populate('attendees')
   .then(events => {
     res.json(events);
   }).catch(err => {
@@ -18,7 +18,9 @@ const getEvents = async (req, res) => {
 // save an event
 const addEvent = async (req, res) => {
   try {
-    const savedEvent = await CalendarEvent.create(req.body);
+    const savedEvent = await CalendarEvent.create({
+      ...req.body, owner: '658286d2943ce883fbe9c68e'
+    });
     res.json({
       event: savedEvent,
       ok: true
@@ -37,18 +39,19 @@ const updateEvent = async (req, res) => {
     const eventId = req.params.id;
     try {
         
-        const updatedEvent = await CalendarEvent.findByIdAndUpdate(eventId, req.body, { new: true });
+        const updatedEvent = await CalendarEvent.findByIdAndUpdate(eventId, req.body, { new: true })
+        .populate('owner').populate('attendees');
         res.json({
-        event: updatedEvent,
-        ok: true
+          event: updatedEvent,
+          ok: true
         });
 
     } catch (err) {
         // console.log('Error while trying to update data:', err);
         res.status(500)
         .json({
-        message: 'Failed to update an event',
-        ok: false
+          message: 'Failed to update an event',
+          ok: false
         });
     }
 };

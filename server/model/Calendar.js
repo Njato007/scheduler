@@ -10,7 +10,10 @@ const CalendarSchema = new Schema({
         type: Boolean,
         default: true
     },
-    owner: String
+    owner: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 module.exports = mongoose.model('Calendar', CalendarSchema);
