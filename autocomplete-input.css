@@ -86,21 +86,21 @@ div.suggestions-list p:hover {
     padding: .3rem .4rem;
     border-radius: .1rem;
     border: 2px solid transparent;
-    transition: all .2s ease;
+    transition: all .1s ease;
 }
 .attendees-item:hover {
     background-color: #dedfff;
     border-bottom-color: #b3b5f0;
 }
 
-.attendees-item i {
+.attendees-item i.fa-times {
     padding: .2rem;
     cursor: pointer;
     color: #6b6b6b;
     border-radius: 50%;
 }
 
-.attendees-item i:hover {
-    background-color: rgb(126, 48, 48);
+.attendees-item i.fa-times:hover {
+    /* background-color: rgb(126, 48, 48); */
     color: #ffffff;
 }

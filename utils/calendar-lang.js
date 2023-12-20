@@ -64,6 +64,7 @@ const Words = {
         private: 'Private',
         add_event: 'Add event',
         category: {
+            label: 'Category',
             time: 'Time',
             task: 'Task',
             allday: 'All day',
@@ -79,7 +80,7 @@ const Words = {
         allday: 'Journée entière',
         isAllday: 'Journée entière?',
         free: 'Libre',
-        busy: 'Occupé',
+        busy: 'Occupé(e)',
         title: "Nom de l'événement",
         location: 'Location',
         startdate: 'Date de début',
@@ -136,6 +137,7 @@ const Words = {
         private: 'Privé',
         add_event: 'Ajouter un événement',
         category: {
+            label: 'Catégorie',
             time: 'Heure',
             task: 'Tâche',
             allday: 'Toute la journée',
@@ -196,10 +198,10 @@ calendar.setOptions({
             return Words[Lang].isAllday;
         },
         popupStateFree() {
-            return Words[Lang].free;
+            return `🏝️ ${Words[Lang].free}`;
         },
         popupStateBusy() {
-            return Words[Lang].busy;
+            return `🔥 ${Words[Lang].busy}`;
         },
         titlePlaceholder() {
             return Words[Lang].title;
@@ -224,6 +226,15 @@ calendar.setOptions({
         },
         popupDelete() {
             return Words[Lang].delete;
+        },
+        popupDetailBody({ body }) {
+            console.log('the body', body)
+            return '<h1>POP</h1>';
+        },
+        popupDetailAttendees({ attendees = []}) {
+            return attendees.map(att => `
+                <a href="mailto:${att.email}">${att.name}</a>
+            `).join(', ');
         },
 
         time(event) {
@@ -279,9 +290,6 @@ calendar.setOptions({
         },
         goingDuration(event) {
             return `<span>${event.goingDuration}</span>`;
-        },
-        popupDetailBody({ body }) {
-            return body;
         },
     },
     week: {

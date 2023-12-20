@@ -119,7 +119,7 @@
                             <i class="fas fa-angle-right fa-lg"></i>
                         </button>
                     </div>
-                    <h1>Today</h1>
+                    <h1 cdata-key="today">Today</h1>
                 </div>
                 <div class="others">
                     <div class="add-event-form">
@@ -464,7 +464,7 @@
             calendar.clearGridSelections();
 
             const { event } = eventInfo;
-            console.log(event.attendees)
+            
             const rect = container.getBoundingClientRect();
             setTimeout(() => {
 
@@ -526,6 +526,7 @@
             const rect = container.getBoundingClientRect();
             console.log(e)
             calendar.openFormPopup({
+                calendarId: 'cal1',
                 start: new Date().toISOString(),
                 end: new Date().toISOString()
             }); 
@@ -551,17 +552,15 @@
             }, 10);
         });
 
-        // document.addEventListener('re', () => {
-            const resizeObserver = new ResizeObserver(entries => {
-                entries.map(entry => {
-                    let myCalendars_div = document.getElementById('my-calendars-list')
-                    console.log(myCalendars_div.clientHeight)
-                    myCalendars_div.style.maxHeight = `${myCalendars_div.clientHeight}px`;
-                })
-            });
+        const resizeObserver = new ResizeObserver(entries => {
+            entries.map(entry => {
+                let myCalendars_div = document.getElementById('my-calendars-list')
+                myCalendars_div.style.maxHeight = '';
+                myCalendars_div.style.maxHeight = `${myCalendars_div.clientHeight}px`;
+            })
+        });
 
-            resizeObserver.observe(document.body)
-        // });
+        resizeObserver.observe(document.body)
 
     </script>
     <script src="utils/calendar-lang.js"></script>

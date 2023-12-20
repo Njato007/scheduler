@@ -28,7 +28,10 @@ const eventData = (event) => {
     end: event.start?.d.d ? new Date(event.end.d.d).toISOString() : new Date().toISOString(),
   }); 
 }
-const withId = (events) => events.map(event => ({...event, id: event._id}));
+const withId = (events) => events.map(event => ({
+  ...event,
+  id: event._id
+}));
 
 calendar.clear();
 
@@ -36,7 +39,7 @@ calendar.clear();
 axios.get(`${BaseUrl}/events`)
   .then(function (response) {
     // handle success
-    const events = withId(response.data);
+    const events = withId(response.data)
     calendar.createEvents(events);
   })
   .catch(function (error) {
@@ -61,7 +64,8 @@ const addEvent = (eventObj) => {
 calendar.on('beforeCreateEvent', (eventObj) => {
     // send data to server to add an event (POST)
     const attendees = document.getElementsByName('attendees[]');
-    eventObj.attendees = [...attendees].map(input => input.value);
+    if (attendees.length > 0)
+      eventObj.attendees = [...attendees].map(input => input.value);
     axios({
       method: 'post',
       url: `${BaseUrl}/events/add`,
@@ -99,15 +103,17 @@ calendar.on('beforeUpdateEvent', ({ event, changes }) => {
   // localStorage.setItem('calendar-events', JSON.stringify(newEvents));
   
   const attendees = document.getElementsByName('attendees[]');
-  changes.attendees = [...attendees].map(input => input.value);
+  if (attendees.length > 0)
+    changes.attendees = [...attendees].map(input => input.value);
+  else 
+    // update calendar event first to avoid timeout
+    calendar.updateEvent(event.id, event.calendarId, changes);
 
   // check end and start and change to iso string (end.d.d)
   const changesObj = {...changes};
   const {end, start} = changesObj;
   if (start) changesObj.start = new Date(start.d.d).toISOString();
   if (end) changesObj.end = new Date(end.d.d).toISOString();
-  // update calendar event first to avoid timeout
-  calendar.updateEvent(event.id, event.calendarId, changes);
 
   axios({
     method: 'put',
@@ -121,7 +127,7 @@ calendar.on('beforeUpdateEvent', ({ event, changes }) => {
       toast(Words[Lang].event_updated);
     } else {
       // dont change the event to previous in the graphic if the update is failed
-      calendar.updateEvent(event.id, event.calendarId, event);
+      calendar.updateEvent(event.id, event.calendarId, response.data.updatedEvent);
     }
   })
   .catch(function (error) {

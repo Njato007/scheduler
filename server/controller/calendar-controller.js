@@ -2,7 +2,7 @@ const Calendar = require("../model/Calendar");
 const CalendarEvent = require("../model/CalendarEvent");
 
 const getCalendars = async (req, res) => {
-    Calendar.find()
+    Calendar.find().populate('owner')
     .then(events => {
       res.json(events);
     }).catch(err => {
@@ -19,7 +19,9 @@ const getCalendars = async (req, res) => {
 // save an event
 const addCalendar = async (req, res) => {
     try {
-      const savedCalendar = await Calendar.create(req.body);
+      const savedCalendar = await Calendar.create({
+        ...req.body, owner: '658286d2943ce883fbe9c68e'
+      });
       res.json({
         calendar: savedCalendar,
         ok: true

@@ -2,15 +2,38 @@ function initAutoComplete() {
     const input = document.querySelector('#attendee');
     const suggestions = document.querySelector('.suggestions div.suggestions-list');
 
-    const fruit = [ 'Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry', 'Boysenberry', 'Currant', 'Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Custard apple', 'Damson', 'Date', 'Dragonfruit', 'Durian', 'Elderberry', 'Feijoa', 'Fig', 'Gooseberry', 'Grape', 'Raisin', 'Grapefruit', 'Guava', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 'Juniper berry', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loquat', 'Longan', 'Lychee', 'Mango', 'Mangosteen', 'Marionberry', 'Melon', 'Cantaloupe', 'Honeydew', 'Watermelon', 'Miracle fruit', 'Mulberry', 'Nectarine', 'Nance', 'Olive', 'Orange', 'Clementine', 'Mandarine', 'Tangerine', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Plantain', 'Plum', 'Pineapple', 'Pomegranate', 'Pomelo', 'Quince', 'Raspberry', 'Salmonberry', 'Rambutan', 'Redcurrant', 'Salak', 'Satsuma', 'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu'];
+    var users = [];
+    // get All users
+    
+    axios.get(`${BaseUrl}/users`)
+    .then(function (response) {
+        // handle success
+        const res = response.data;
+        if (res.ok) {
+            users = [...res.users];
+        }
+        
+    })
+    .catch(function (error) {
+        // handle error
+        console.log(error);
+    })
+    .finally(function () {
+        // always executed
+        initModal();
+    });
+
 
     function search(str) {
         let results = [];
         const val = str.toLowerCase();
 
-        for (i = 0; i < fruit.length; i++) {
-            if (fruit[i].toLowerCase().indexOf(val) > -1) {
-                results.push(fruit[i]);
+        for (i = 0; i < users.length; i++) {
+            if (users[i].name.toLowerCase().indexOf(val) > -1) {
+                let isAdded = [...document.querySelectorAll('div.attendees-item p')].some(e => e.id === users[i]._id)
+                console.log(isAdded)
+                if (!isAdded)
+                    results.push(users[i]);
             }
         }
 
@@ -32,12 +55,18 @@ function initAutoComplete() {
 
         if (results.length > 0) {
             for (i = 0; i < results.length; i++) {
-                let item = results[i];
+                let username = results[i].name;
                 // Highlights only the first match
                 // TODO: highlight all matches
-                const match = item.match(new RegExp(inputVal, 'i'));
-                item = item.replace(match[0], `<strong>${match[0]}</strong>`);
-                suggestions.innerHTML += `<p>${item}</p>`;
+                const match = username.match(new RegExp(inputVal, 'i'));
+                let element = username.replace(match[0], `<strong>${match[0]}</strong>`);
+                suggestions.innerHTML += `<p id="${results[i]._id}">
+                    <span class="attendee-profile">
+                        <b>${getFirstLeter(results[i].name)}</b>
+                        <i class="fas fa-user-circle"></i>
+                    </span>
+                    <span>${element}</span>
+                </p>`;
             }
             suggestions.classList.add('has-suggestions');
         } else {
@@ -47,7 +76,8 @@ function initAutoComplete() {
         }
     }
 
-    function useSuggestion(e) {
+    function useSuggestion(userId) {
+        const selectedUser = users.find(user => user._id === userId);
         const list = document.querySelector('div.attendees-added');
         const container = document.querySelector('div.attendees-container');
         const div = document.createElement('div');
@@ -60,10 +90,13 @@ function initAutoComplete() {
         }
         div.className = 'attendees-item';
         div.innerHTML = `
-            <p>
-                <span class="toastui-calendar-icon toastui-calendar-ic-user-b"></span>
-                ${e.target.innerText}
-                <input type="hidden" value="${e.target.innerText}" name="attendees[]" />
+            <p id="${selectedUser._id}">
+                <span class="attendee-profile">
+                    <b>${getFirstLeter(selectedUser.name)}</b>
+                    <i class="fas fa-user-circle"></i>
+                </span>
+                ${selectedUser.name}
+                <input type="hidden" value="${selectedUser._id}" name="attendees[]" />
             </p>
         `;
         div.append(i);
@@ -78,5 +111,8 @@ function initAutoComplete() {
     }
 
     input.addEventListener('keyup', searchHandler);
-    suggestions.addEventListener('click', useSuggestion);
+    suggestions.addEventListener('click', e => {
+        if (e.target.id)
+            useSuggestion(e.target.id)
+    });
 }
